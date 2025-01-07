@@ -1,19 +1,11 @@
 'use client'
 
-import React, { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React, { useRef, useState, useEffect } from 'react'
+import { motion, useScroll } from 'motion/react'
 import { experience } from '../data/data'
 
-function Item({ work, index, containerRef, itemHeight }) {
-  const { scrollYProgress } = useScroll({
-    container: containerRef, // Use the container reference
-    offset: [
-      `${(index * itemHeight) / 100} 0`, // Start when this item's 100vh begins
-      `${((index + 1) * itemHeight) / 100} 0`, // End when this item's 100vh ends
-    ],
-  })
-
-  const topValue = useTransform(scrollYProgress, [0, 1], ['-100%', '0%'])
+function Item({ work, translateY, animate }) {
+  console.log(translateY) // Check the calculated translateY value
 
   return (
     <li className="relative flex items-center gap-4 py-4">
@@ -25,7 +17,9 @@ function Item({ work, index, containerRef, itemHeight }) {
         <motion.div
           className="w-1 h-24 absolute left-0 z-10 bg-slate-500"
           style={{
-            top: topValue,
+            transform: animate
+              ? `translateY(${translateY})` // Use the calculated translateY
+              : 'translateY(-100%)', // If not animated, stay at -100%
           }}
         />
       </div>
@@ -41,7 +35,95 @@ function Item({ work, index, containerRef, itemHeight }) {
 
 const Experience = () => {
   const containerRef = useRef(null)
-  const itemHeight = 100 // Each item occupies 100vh
+  const firstSpacerRef = useRef(null)
+  const [animate, setAnimate] = useState(false)
+  const [activeDescription, setActiveDescription] = useState(
+    experience[0].description
+  )
+  const [translateYs, setTranslateYs] = useState({}) // Track translateY for each item
+
+  // console.log(translateYs)
+
+  const { scrollYProgress: spacerScrollYProgress } = useScroll({
+    target: firstSpacerRef,
+    offset: ['start start', 'end start'], // Trigger when the spacer's top reaches the viewport's top
+  })
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.dataset.index, 10)
+            const elementTop = entry.target.getBoundingClientRect().top // Get the top position of the element
+            const elementHeight = entry.target.getBoundingClientRect().height // Get the height of the element
+
+            const progress = Math.min(
+              1,
+              Math.max(0, elementTop / elementHeight)
+            )
+
+            // Reverse the percentage and map it to translateY from -100% to 0%
+            const translateValue = `${(1 - progress) * -100}%` // Inverted to ensure it goes from -100% to 0%
+
+            setTranslateYs((prev) => ({
+              ...prev,
+              [index]: translateValue, // Store translateY for each item
+            }))
+
+            // Trigger animation when the item is visible
+            if (!animate) {
+              setAnimate(true)
+            }
+          } else {
+            // Reset the translateY and animation when the item is not in view
+            setTranslateYs((prev) => ({
+              ...prev,
+              [parseInt(entry.target.dataset.index, 10)]: '-100%',
+            }))
+            if (animate) {
+              setAnimate(false)
+            }
+          }
+        })
+      },
+      {
+        root: null,
+        threshold: 0.5, // Trigger when 50% of the spacer is visible
+      }
+    )
+
+    const spacers = document.querySelectorAll('[data-spacer]')
+    spacers.forEach((spacer) => observer.observe(spacer))
+
+    return () => {
+      spacers.forEach((spacer) => observer.unobserve(spacer))
+    }
+  }, [animate, spacerScrollYProgress])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.dataset.index, 10)
+            setActiveDescription(experience[index].description)
+          }
+        })
+      },
+      {
+        root: null,
+        threshold: 0.5, // Trigger when 50% of the spacer is visible
+      }
+    )
+
+    const spacers = document.querySelectorAll('[data-spacer]')
+    spacers.forEach((spacer) => observer.observe(spacer))
+
+    return () => {
+      spacers.forEach((spacer) => observer.unobserve(spacer))
+    }
+  }, [])
 
   return (
     <section
@@ -51,25 +133,38 @@ const Experience = () => {
     >
       {/* Sticky container */}
       <div className="h-[100vh] flex flex-col items-center justify-around sticky top-0 w-full">
-        <ul className="w-full max-w-4xl flex flex-col gap-3">
-          {experience.map((work, index) => (
-            <Item
-              key={work.id}
-              work={work}
-              index={index}
-              containerRef={containerRef}
-              itemHeight={100}
-            />
-          ))}
-        </ul>
+        <div className="flex items-center justify-center w-full gap-6">
+          <ul className="w-full max-w-4xl flex flex-col gap-3">
+            {experience.map((work, index) => (
+              <Item
+                key={work.id}
+                work={work}
+                translateY={translateYs[index] || '-100%'} // Apply the translateY specific to each item
+                animate={animate}
+              />
+            ))}
+          </ul>
+
+          {/* Display active description */}
+          <div className="text-center mt-4">
+            <p className="text-lg text-white">{activeDescription}</p>
+          </div>
+        </div>
       </div>
-      <div className="flex flex-none flex-col flex-nowrap items-center content-center justify-start gap-0 h-min left-0 right-0 top-0 overflow-hidden p-0 pointer-events-none absolute z-10">
+
+      {/* Divs to Track */}
+      <div className="absolute top-0 w-full">
         {experience.map((work, index) => (
           <div
+            ref={index === 0 ? firstSpacerRef : null} // Reference the first spacer
             className="flex-none h-screen overflow-hidden relative w-full"
             key={work.id}
+            data-spacer
+            data-index={index}
           ></div>
         ))}
+        {/* Extra spacer for smooth scrolling */}
+        <div className="flex-none h-screen overflow-hidden relative w-full"></div>
       </div>
     </section>
   )

@@ -18,7 +18,7 @@ export const experience = [
         <li>React</li>
         <li>Express</li>
         <li>Wordpress</li>
-        <li>MongoDB</li>
+        <li>MongoDBbbbbbbb</li>
     `,
   },
 ]
