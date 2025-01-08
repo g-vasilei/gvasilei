@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react'
 import { motion, useScroll } from 'motion/react'
 import { experience } from '../data/data'
+import { renderToString } from 'react-dom/server'
 
 function Item({ work, progress, isActive }) {
   return (
@@ -36,8 +37,6 @@ const Experience = () => {
   const [progressValues, setProgressValues] = useState({})
   const [activeIndex, setActiveIndex] = useState(0)
 
-  console.log(activeIndex)
-
   return (
     <section
       ref={containerRef}
@@ -56,13 +55,24 @@ const Experience = () => {
                 isActive={index === activeIndex} // Highlight active item
               />
             ))}
-            <div>{experience[activeIndex].description}</div>
+            <div>
+              <div className="border border-slate-100 rounded-md">
+                <div className="p-3 flex items-center justify-start gap-2 bg-[#15191E] rounded-md">
+                  <div className="w-3 h-3 rounded-full bg-slate-600"></div>
+                  <div className="w-3 h-3 rounded-full bg-slate-600"></div>
+                  <div className="w-3 h-3 rounded-full bg-slate-600"></div>
+                </div>
+                <div className="p-3 bg-[#191E24] rounded-md flex flex-col whitespace-pre-line">
+                  {renderToString(Card(experience[activeIndex]))}
+                </div>
+              </div>
+            </div>
           </ul>
         </div>
       </div>
 
       {/* Divs to Track */}
-      <div className="absolute top-0 w-full">
+      <div className="absolute top-0 w-full z-[-1]">
         {experience.map((work, index) => (
           <ScrollTracker
             key={work.id}
@@ -106,6 +116,23 @@ function ScrollTracker({ index, onProgress }) {
       className="flex-none h-screen overflow-hidden relative w-full"
       data-index={index}
     ></div>
+  )
+}
+
+function Card(work) {
+  const description = work?.description.map((item, index) => {
+    return (
+      <>
+        &nbsp;&nbsp;<li key={index}>{item}</li>
+      </>
+    )
+  })
+
+  return (
+    <section className="flex flex-col">
+      <h1>{work?.title}</h1>
+      <ul>{description}</ul>
+    </section>
   )
 }
 
