@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { Header } from './components/Header'
+import { Header } from './components/header/Header'
 import { Footer } from './components/Footer'
 
 const geistSans = Geist({
@@ -25,12 +25,12 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-          href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Nabla&display=swap"
           rel="stylesheet"
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-[#0f1115]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen font-gabarito bg-body`}
       >
         <Header />
         {children}

@@ -35,3 +35,21 @@ export const experience = [
     `,
   },
 ]
+
+export const navigationLinks = [
+  {
+    id: 1,
+    name: 'Experience',
+    link: '#Experience',
+  },
+  {
+    id: 2,
+    name: 'Portfolio',
+    link: '#Portfolio',
+  },
+  {
+    id: 3,
+    name: 'Contact',
+    link: '#Contact',
+  },
+]

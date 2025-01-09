@@ -10,9 +10,13 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        body: '#0f1115',
+        card: '#14171c',
+        border: '#1a1e26',
       },
       fontFamily: {
         gabarito: ['Gabarito', 'serif'],
+        nabla: ['Nabla', 'serif'],
       },
     },
   },
