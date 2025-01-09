@@ -13,6 +13,8 @@ export default {
         body: '#0f1115',
         card: '#14171c',
         border: '#1a1e26',
+        yellow: '#FFE864',
+        orange: '#FF7727',
       },
       fontFamily: {
         gabarito: ['Gabarito', 'serif'],
