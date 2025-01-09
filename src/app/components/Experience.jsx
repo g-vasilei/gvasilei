@@ -1,34 +1,78 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
-import { motion, useScroll } from 'motion/react'
+import { motion, useScroll, AnimatePresence } from 'motion/react'
 import { experience } from '../data/data'
 import { renderToString } from 'react-dom/server'
+import { CopyBlock, dracula } from 'react-code-blocks'
 
 function Item({ work, progress, isActive }) {
   return (
-    <li className="relative flex items-center gap-4 py-4">
+    <motion.li className="relative flex items-center gap-4 py-4" layout>
       {/* Vertical Progress Line */}
-      {isActive && (
-        <div className="overflow-hidden w-1 h-24 relative">
-          {/* Background Line */}
-          <div className="w-1 h-24 bg-red-700"></div>
-          {/* Animated Progress Line */}
+      <AnimatePresence>
+        {isActive && (
           <motion.div
-            className="w-1 h-24 absolute left-0 z-10 bg-slate-500"
-            style={{
-              transform: `translateY(${(1 - progress) * -100}%)`,
-            }}
-          />
-        </div>
-      )}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1, ease: 'easeInOut' }}
+            className="overflow-hidden w-1 h-[7.625rem] absolute top-4 -left-5 rounded-lg"
+          >
+            {/* Background Line */}
+            <div className="w-1 h-[7.625rem] bg-red-700 rounded-lg"></div>
+
+            {/* Animated Progress Line */}
+            <motion.div
+              className="w-1 h-[7.625rem] absolute left-0 z-10 bg-slate-500 rounded-lg"
+              style={{
+                transform: `translateY(${(1 - progress) * -100}%)`,
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Content */}
-      <div className="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
-        <h3 className="text-lg font-bold text-white">{work.title}</h3>
-        <p className="text-sm text-gray-400">{work.subTitle}</p>
+      <div className="flex flex-col items-start gap-3">
+        <motion.h3
+          initial={{ fontSize: '1rem' }}
+          animate={{
+            fontSize: isActive ? '2.25rem' : '1rem', // Animate between text-lg and text-4xl
+          }}
+          transition={{ duration: 0.2, ease: 'easeInOut' }} // Adjust transition timing
+          className="font-bold text-white font-gabarito"
+        >
+          {work.title}
+        </motion.h3>
+        <AnimatePresence>
+          {isActive && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1, ease: 'easeInOut' }}
+              className="text-md font-semibold text-gray-200"
+            >
+              {work.subTitle}
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {isActive && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1, ease: 'easeInOut' }}
+              className="text-sm font-semibold text-gray-400"
+            >
+              Since: {work.date}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </li>
+    </motion.li>
   )
 }
 
@@ -45,8 +89,8 @@ const Experience = () => {
     >
       {/* Sticky container */}
       <div className="h-[100vh] flex flex-col items-center justify-around sticky top-0 w-full">
-        <div className="flex items-center justify-center w-full gap-6">
-          <ul className="w-full max-w-4xl flex flex-col gap-3">
+        <div className="flex flex-col items-start justify-center w-full gap-6 lg:grid lg:grid-cols-[400px,1fr] lg:gap-10">
+          <ul className="w-full max-w-screen-2xl flex flex-col gap-3">
             {experience.map((work, index) => (
               <Item
                 key={work.id}
@@ -55,19 +99,24 @@ const Experience = () => {
                 isActive={index === activeIndex} // Highlight active item
               />
             ))}
-            <div>
-              <div className="border border-slate-100 rounded-md">
-                <div className="p-3 flex items-center justify-start gap-2 bg-[#15191E] rounded-md">
-                  <div className="w-3 h-3 rounded-full bg-slate-600"></div>
-                  <div className="w-3 h-3 rounded-full bg-slate-600"></div>
-                  <div className="w-3 h-3 rounded-full bg-slate-600"></div>
-                </div>
-                <div className="p-3 bg-[#191E24] rounded-md flex flex-col whitespace-pre-line">
-                  {renderToString(Card(experience[activeIndex]))}
-                </div>
-              </div>
-            </div>
           </ul>
+          <div className="border border-slate-100 rounded-md w-full max-w-full min-h-[435px]">
+            <div className="p-3 flex items-center justify-start gap-2 bg-[#15191E] rounded-md">
+              <div className="w-3 h-3 rounded-full bg-slate-600"></div>
+              <div className="w-3 h-3 rounded-full bg-slate-600"></div>
+              <div className="w-3 h-3 rounded-full bg-slate-600"></div>
+            </div>
+            <div className="p-3 bg-[#282a36] rounded-bl-md rounded-br-md flex flex-col whitespace-pre-line overflow-hidden text-wrap">
+              <CopyBlock
+                text={experience[activeIndex].description}
+                language="jsx"
+                showLineNumbers={true}
+                theme={dracula}
+                wrapLines={true}
+                codeBlock
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -116,23 +165,6 @@ function ScrollTracker({ index, onProgress }) {
       className="flex-none h-screen overflow-hidden relative w-full"
       data-index={index}
     ></div>
-  )
-}
-
-function Card(work) {
-  const description = work?.description.map((item, index) => {
-    return (
-      <>
-        &nbsp;&nbsp;<li key={index}>{item}</li>
-      </>
-    )
-  })
-
-  return (
-    <section className="flex flex-col">
-      <h1>{work?.title}</h1>
-      <ul>{description}</ul>
-    </section>
   )
 }
 
