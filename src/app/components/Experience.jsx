@@ -7,71 +7,76 @@ import { renderToString } from 'react-dom/server'
 import { CopyBlock, dracula } from 'react-code-blocks'
 
 function Item({ work, progress, isActive }) {
+  console.log(isActive)
   return (
-    <motion.li className="relative flex items-center gap-4 py-4" layout>
+    <motion.li
+      className="relative flex items-center gap-4 ml-5 lg:ml-0 origin-top"
+      animate={{ height: 'min-content', margin: isActive ? '16px 0' : '0' }}
+      exit={{ height: 'min-content' }}
+      transition={{ duration: 0.4, ease: 'easeInOut' }} // Smooth animation
+      layout
+    >
       {/* Vertical Progress Line */}
       <AnimatePresence>
-        {isActive && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: isActive ? 1 : 0, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.4, ease: 'easeInOut' }}
+          className={`${
+            isActive ? 'opacity-100' : 'opacity-0'
+          } overflow-hidden w-1 absolute top-0 bottom-0 -left-5 rounded-lg origin-top`}
+        >
+          <motion.div className="w-1 h-full bg-orange rounded-lg"></motion.div>
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1, ease: 'easeInOut' }}
-            className="overflow-hidden w-1 h-[7.625rem] absolute top-4 -left-5 rounded-lg"
-          >
-            {/* Background Line */}
-            <div className="w-1 h-[7.625rem] bg-red-700 rounded-lg"></div>
-
-            {/* Animated Progress Line */}
-            <motion.div
-              className="w-1 h-[7.625rem] absolute left-0 z-10 bg-slate-500 rounded-lg"
-              style={{
-                transform: `translateY(${(1 - progress) * -100}%)`,
-              }}
-            />
-          </motion.div>
-        )}
+            className="w-1 h-full absolute left-0 z-10 bg-yellow rounded-lg"
+            style={{
+              transform: `translateY(${(1 - progress) * -100}%)`,
+            }}
+          />
+        </motion.div>
       </AnimatePresence>
 
       {/* Content */}
-      <div className="flex flex-col items-start gap-3">
-        <motion.h3
-          initial={{ fontSize: '1rem' }}
-          animate={{
-            fontSize: isActive ? '2.25rem' : '1rem', // Animate between text-lg and text-4xl
-          }}
-          transition={{ duration: 0.2, ease: 'easeInOut' }} // Adjust transition timing
-          className="font-bold text-white font-gabarito"
+      <motion.div
+        className="flex flex-col items-start gap-3 relative origin-top"
+        transition={{ duration: 0.2, ease: 'easeInOut' }}
+      >
+        <motion.div
+          style={{ overflow: 'hidden', display: 'flex' }}
+          className="outline-none flex-col justify-start flex-shrink-0 transform-none will-change-transform origin-top"
         >
-          {work.title}
-        </motion.h3>
+          {/* Animate fontSize for h3 only */}
+          <motion.h3
+            animate={{ fontSize: isActive ? '2rem' : '1.5rem' }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className="font-bold text-white font-gabarito origin-top"
+          >
+            {work.title}
+          </motion.h3>
+        </motion.div>
         <AnimatePresence>
-          {isActive && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.1, ease: 'easeInOut' }}
-              className="text-md font-semibold text-gray-200"
-            >
+          <motion.div
+            initial={{ opacity: 0, position: 'absolute', y: '12px' }}
+            animate={{
+              opacity: isActive ? 1 : 0,
+              x: 0,
+              position: isActive ? 'relative' : 'absolute',
+              y: '0',
+            }}
+            exit={{ opacity: 0, x: -10, y: '60px' }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className="top-full flex flex-col items-start gap-3 origin-top-left"
+          >
+            <div className="text-md font-semibold text-gray-200">
               {work.subTitle}
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <AnimatePresence>
-          {isActive && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.1, ease: 'easeInOut' }}
-              className="text-sm font-semibold text-gray-400"
-            >
+            </div>
+            <div className="text-sm font-semibold text-gray-400">
               Since: {work.date}
-            </motion.div>
-          )}
+            </div>
+          </motion.div>
         </AnimatePresence>
-      </div>
+      </motion.div>
     </motion.li>
   )
 }
@@ -90,16 +95,18 @@ const Experience = () => {
       {/* Sticky container */}
       <div className="h-[100vh] flex flex-col items-center justify-around sticky top-0 w-full">
         <div className="flex flex-col items-start justify-center w-full gap-6 lg:grid lg:grid-cols-[400px,1fr] lg:gap-10">
-          <ul className="w-full max-w-screen-2xl flex flex-col gap-3">
-            {experience.map((work, index) => (
-              <Item
-                key={work.id}
-                work={work}
-                progress={progressValues[index]?.progress || 0}
-                isActive={index === activeIndex} // Highlight active item
-              />
-            ))}
-          </ul>
+          <AnimatePresence>
+            <motion.ul className="w-full max-w-screen-2xl flex flex-col gap-3">
+              {experience.map((work, index) => (
+                <Item
+                  key={work.id}
+                  work={work}
+                  progress={progressValues[index]?.progress || 0}
+                  isActive={index === activeIndex} // Highlight active item
+                />
+              ))}
+            </motion.ul>
+          </AnimatePresence>
           <div className="border border-slate-100 rounded-md w-full max-w-full min-h-[435px]">
             <div className="p-3 flex items-center justify-start gap-2 bg-[#15191E] rounded-md">
               <div className="w-3 h-3 rounded-full bg-slate-600"></div>
