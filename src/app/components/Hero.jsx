@@ -76,8 +76,8 @@ const Hero = () => {
         }}
         className="w-full absolute bottom-0 h-[20rem] flex flex-col gap-3 items-center justify-center overflow-visible -z-[1]"
       />
-      <motion.div className="flex items-center gap-10 flex-wrap">
-        <div className="font-nabla text-[8rem]">GV</div>
+      <motion.div className="flex items-center gap-10 md:gap-14 flex-wrap">
+        <div className="font-nabla text-[8rem] md:text-[10rem]">GV</div>
         <div className="flex flex-col gap-3">
           <h2 className="text-5xl font-bold text-yellow">GVASILEI</h2>
           <p className="text-xl">Your full stack developer</p>
@@ -116,6 +116,21 @@ const Hero = () => {
           </div>
         </div>
       </motion.div>
+      <div className="absolute hidden sm:block sm:right-0 -bottom-20 lg:-bottom-36 lg:-right-24">
+        <motion.div
+          className="w-[105%] top-0 left-0 right-0 bottom-0 absolute backdrop-blur-[4px] bg-[length:3px_3px]"
+          style={{
+            mask: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
+            backgroundSize: '4px 4px',
+            backdropFilter: 'blur(3px)',
+            backgroundImage:
+              'radial-gradient(rgba(0, 0, 0, 0) 1px, rgb(15, 17, 21) 1px)',
+          }}
+        ></motion.div>
+        <div className="font-nabla text-[8rem] xl:text-[10rem] italic">
+          gvasilei
+        </div>
+      </div>
     </section>
   )
 }
