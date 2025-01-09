@@ -11,7 +11,7 @@ function Item({ work, progress, isActive }) {
   return (
     <motion.li
       className="relative flex items-center gap-4 ml-5 lg:ml-0 origin-top"
-      animate={{ height: 'min-content' }}
+      animate={{ height: 'min-content', margin: isActive ? '16px 0' : '0' }}
       exit={{ height: 'min-content' }}
       transition={{ duration: 0.4, ease: 'easeInOut' }} // Smooth animation
       layout
@@ -39,36 +39,34 @@ function Item({ work, progress, isActive }) {
 
       {/* Content */}
       <motion.div
-        className="flex flex-col items-start gap-3 origin-top-left relative origin-top"
+        className="flex flex-col items-start gap-3 relative origin-top"
         transition={{ duration: 0.2, ease: 'easeInOut' }}
       >
         <motion.div
           style={{ overflow: 'hidden', display: 'flex' }}
-          className="outline-none flex-col justify-start flex-shrink-0 transform-none will-change-transform"
+          className="outline-none flex-col justify-start flex-shrink-0 transform-none will-change-transform origin-top"
         >
           {/* Animate fontSize for h3 only */}
           <motion.h3
             animate={{ fontSize: isActive ? '2rem' : '1.5rem' }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className="font-bold text-white font-gabarito"
+            className="font-bold text-white font-gabarito origin-top"
           >
             {work.title}
           </motion.h3>
         </motion.div>
         <AnimatePresence>
           <motion.div
-            initial={{ opacity: 0, position: 'absolute', top: '12px' }}
+            initial={{ opacity: 0, position: 'absolute', y: '12px' }}
             animate={{
               opacity: isActive ? 1 : 0,
               x: 0,
               position: isActive ? 'relative' : 'absolute',
-              top: '0',
+              y: '0',
             }}
-            exit={{ opacity: 0, x: -10 }}
+            exit={{ opacity: 0, x: -10, y: '60px' }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className={`${
-              isActive ? 'relative opacity-100' : 'absolute top-3 opacity-0'
-            } top-full flex flex-col items-start gap-3 origin-top-left`}
+            className="top-full flex flex-col items-start gap-3 origin-top-left"
           >
             <div className="text-md font-semibold text-gray-200">
               {work.subTitle}
