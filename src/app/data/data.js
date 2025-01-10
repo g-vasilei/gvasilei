@@ -1,3 +1,6 @@
+import grummpy from '../../../public/portfolio/grumpy.png'
+import dynamo from '../../../public/portfolio/dynamo.png'
+
 export const experience = [
   {
     id: 1,
@@ -32,5 +35,22 @@ export const navigationLinks = [
     id: 3,
     name: 'Contact',
     link: '#contact',
+  },
+]
+
+export const portfolio = [
+  {
+    id: 1,
+    title: 'grumpy.gr',
+    img: grummpy,
+    url: 'https://grumpy.gr',
+    color: '#fff',
+  },
+  {
+    id: 2,
+    title: 'dynamo.gr',
+    img: dynamo,
+    url: 'https://dynamo.gr',
+    color: '#ff2323',
   },
 ]
