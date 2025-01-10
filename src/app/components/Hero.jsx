@@ -10,10 +10,15 @@ import {
 import { FaArrowDown } from 'react-icons/fa6'
 
 const Hero = () => {
-  const [width, setWidth] = useState(window.innerWidth)
+  const [width, setWidth] = useState(0) // Initialize with 0 or a default value.
 
   useEffect(() => {
+    // This runs only in the browser.
     const handleResize = () => setWidth(window.innerWidth)
+
+    // Set the initial width on component mount.
+    setWidth(window.innerWidth)
+
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
