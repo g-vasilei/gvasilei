@@ -10,7 +10,7 @@ export const Header = () => {
         <h1 className="font-bold text-5xl font-nabla">GV</h1>
         <ul className="hidden sm:flex items-center text-white gap-6">
           {navigationLinks.map((link) => (
-            <li key={link.id} className="text-2xl">
+            <li key={link.id} className="text-xl">
               <Link href={link.link}>{link.name}</Link>
             </li>
           ))}

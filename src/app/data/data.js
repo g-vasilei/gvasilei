@@ -4,35 +4,16 @@ export const experience = [
     title: 'Freelancer',
     subTitle: 'Full Stack',
     date: 'Jan 2020 - Now',
-    description: `
-    const Freelancer = () => {
-     return(
-        <h1 className="text-2xl">Full Stack</h1>
-        <ul>
-          <li>React</li>
-          <li>Express</li>
-          <li>Wordpress</li>
-          <li>MongoDB</li>
-        </ul>
-      )
-    }
-    `,
+    description:
+      'Experienced freelance developer specializing in creating custom professional applications using the MERN stack, single-page applications (SPAs) with experience in Next.js, and building and customizing e-commerce solutions with WooCommerce to meet unique client needs.',
   },
   {
     id: 2,
     title: 'Deloitte',
     subTitle: 'Full Stack',
     date: 'Jan 2024 - Now',
-    description: `
-      <section className="flex flex-col gap-2 items-start">
-        <h1 className="text-2xl text-gray-800">Deloitte</h1>
-        <p className="text-md text-gray-300">Full Stack</p>
-        <ul className="flex flex-col gap-1">
-          <li>React</li>
-          <li>Drupal</li>
-        </ul>
-      </section>
-    `,
+    description:
+      'Contributing to major projects while adhering to professional standards such as Agile methodology, ensuring high-quality development and efficient team collaboration.',
   },
 ]
 
@@ -40,16 +21,16 @@ export const navigationLinks = [
   {
     id: 1,
     name: 'Experience',
-    link: '#Experience',
+    link: '#experience',
   },
   {
     id: 2,
     name: 'Portfolio',
-    link: '#Portfolio',
+    link: '#portfolio',
   },
   {
     id: 3,
     name: 'Contact',
-    link: '#Contact',
+    link: '#contact',
   },
 ]
