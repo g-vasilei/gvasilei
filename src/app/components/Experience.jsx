@@ -7,12 +7,16 @@ import { renderToString } from 'react-dom/server'
 import { CopyBlock, dracula } from 'react-code-blocks'
 
 function Item({ work, progress, isActive }) {
-  console.log(isActive)
   return (
     <motion.li
-      className="relative flex items-center gap-4 ml-5 lg:ml-0 origin-top"
-      animate={{ height: 'min-content', margin: isActive ? '16px 0' : '0' }}
-      exit={{ height: 'min-content' }}
+      className={`${
+        isActive ? 'ml-5 xl:ml-1 flex' : 'opacity-0 lg:opacity-100'
+      } absolute  left-5 lg:relative flex items-center gap-4 ml-5 lg:ml-0 origin-top`}
+      animate={{
+        height: 'min-content',
+        margin: isActive ? '16px 0' : '0',
+      }}
+      exit={{ height: 'min-content', opacity: 0 }}
       transition={{ duration: 0.4, ease: 'easeInOut' }} // Smooth animation
       layout
     >
@@ -48,9 +52,14 @@ function Item({ work, progress, isActive }) {
         >
           {/* Animate fontSize for h3 only */}
           <motion.h3
-            animate={{ fontSize: isActive ? '2rem' : '1.5rem' }}
+            animate={{
+              fontSize: isActive ? '2rem' : '1.5rem',
+              lineHeight: isActive ? '2rem' : '1.5rem',
+            }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
-            className="font-bold text-white font-gabarito origin-top"
+            className={`${
+              isActive ? 'opacity-100' : 'opacity-40'
+            } font-bold text-white font-gabarito origin-top`}
           >
             {work.title}
           </motion.h3>
@@ -91,12 +100,13 @@ const Experience = () => {
       ref={containerRef}
       className="flex flex-col items-center justify-start w-full relative"
       style={{ height: `${100 * (experience.length + 1)}vh` }}
+      id="experience"
     >
       {/* Sticky container */}
       <div className="h-[100vh] flex flex-col items-center justify-around sticky top-0 w-full">
-        <div className="flex flex-col items-start justify-center w-full gap-6 lg:grid lg:grid-cols-[400px,1fr] lg:gap-10">
+        <div className="flex flex-col items-start justify-center w-full gap-6 lg:grid lg:grid-cols-[300px,1fr] lg:items-center lg:gap-10 h-full lg:max-h-min">
           <AnimatePresence>
-            <motion.ul className="w-full max-w-screen-2xl flex flex-col gap-3">
+            <motion.ul className="w-full max-w-screen-2xl flex flex-col gap-3 h-32 lg:justify-start lg:self-start">
               {experience.map((work, index) => (
                 <Item
                   key={work.id}
@@ -107,23 +117,34 @@ const Experience = () => {
               ))}
             </motion.ul>
           </AnimatePresence>
-          <div className="border border-slate-100 rounded-md w-full max-w-full min-h-[435px]">
-            <div className="p-3 flex items-center justify-start gap-2 bg-[#15191E] rounded-md">
-              <div className="w-3 h-3 rounded-full bg-slate-600"></div>
-              <div className="w-3 h-3 rounded-full bg-slate-600"></div>
-              <div className="w-3 h-3 rounded-full bg-slate-600"></div>
-            </div>
-            <div className="p-3 bg-[#282a36] rounded-bl-md rounded-br-md flex flex-col whitespace-pre-line overflow-hidden text-wrap">
-              <CopyBlock
-                text={experience[activeIndex].description}
-                language="jsx"
-                showLineNumbers={true}
-                theme={dracula}
-                wrapLines={true}
-                codeBlock
-              />
-            </div>
-          </div>
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="border border-border bg-card rounded-md w-full max-w-full md:min-h-[435px] relative overflow-hidden h-3/5 md:h-3/4 lg:h-[37.5rem]"
+            >
+              <div className="text-base leading-5 lg:text-lg lg:leading-6 p-5">
+                {experience[activeIndex].description}
+              </div>
+              <div className="absolute block sm:right-0 -bottom-4 -right-1 lg:-bottom-20 lg:-right-24">
+                <motion.div
+                  className="w-[105%] top-0 left-0 right-0 bottom-0 absolute backdrop-blur-[4px] bg-[length:3px_3px]"
+                  style={{
+                    mask: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
+                    backgroundSize: '4px 4px',
+                    backdropFilter: 'blur(3px)',
+                    backgroundImage:
+                      'radial-gradient(rgba(0, 0, 0, 0) 1px, rgb(20, 23, 28) 1px)',
+                  }}
+                ></motion.div>
+                <div className="font-nabla text-[4rem] lg:text-[8rem] xl:text-[10rem] italic">
+                  {experience[activeIndex].title}
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 

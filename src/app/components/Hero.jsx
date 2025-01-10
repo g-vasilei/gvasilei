@@ -1,18 +1,25 @@
 'use client'
 
-import React, { useEffect } from 'react'
-import HeroBg from '../../../public/hero_dots.svg'
-import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 import {
   motion,
   useMotionTemplate,
   useMotionValue,
   animate,
 } from 'motion/react'
+import { FaArrowDown } from 'react-icons/fa6'
 
 const Hero = () => {
-  const rows = 8
-  const cols = 12
+  const [width, setWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const rows = 4
+  const cols = width < 768 ? 3 : 6
 
   const gridItems = Array.from({ length: rows }, (_, rowIndex) =>
     Array.from({ length: cols }, (_, colIndex) => {
@@ -29,9 +36,7 @@ const Hero = () => {
             borderBottom: isLastRow ? 'none' : '1px dashed #1a1e26',
             borderRight: isLastCol ? 'none' : '1px dashed #1a1e26',
           }}
-        >
-          {/* Add content here if needed */}
-        </div>
+        ></div>
       )
     })
   ).flat()
@@ -60,9 +65,9 @@ const Hero = () => {
   }
 
   return (
-    <section className="flex items-center justify-center min-h-[30rem] 2xl:p-0 relative">
+    <section className="flex flex-col gap-16 md:gap-24 items-center justify-center min-h-[30rem] 2xl:p-0 relative max-w-full">
       <div
-        className="hidden sm:grid w-full border border-dashed border-border absolute top-0 left-0 right-0 bottom-0 -z-[2]"
+        className="grid w-full  absolute top-0 left-0 right-0 bottom-0 -z-[2]"
         style={{
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
@@ -76,14 +81,20 @@ const Hero = () => {
         }}
         className="w-full absolute bottom-0 h-[20rem] flex flex-col gap-3 items-center justify-center overflow-visible -z-[1]"
       />
-      <motion.div className="flex items-center gap-10 md:gap-14 flex-wrap">
-        <div className="font-nabla text-[8rem] md:text-[10rem]">GV</div>
+      <motion.div className="flex items-center gap-6 md:gap-10 lg:gap-14 flex-wrap">
+        <div className="font-nabla text-[6rem] md:text-[8rem] lg:text-[10rem]">
+          GV
+        </div>
         <div className="flex flex-col gap-3">
-          <h2 className="text-5xl font-bold text-yellow">GVASILEI</h2>
-          <p className="text-xl">Your full stack developer</p>
+          <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold text-yellow">
+            GVASILEI
+          </h2>
+          <p className="text-md md:text-lg lg:text-xl">
+            Your full stack developer
+          </p>
           <div className="flex gap-5">
             <motion.button
-              className="px-4 py-3 rounded-md border border-border bg-orange text-xl flex flex-col items-center justify-center gap-0 relative overflow-hidden hover:shadow-[-3px_3px_0px_#FFD214] transition-all duration-300"
+              className="px-4 py-3 rounded-md border border-border bg-orange text-md md:text-lg lg:text-xl flex flex-col items-center justify-center gap-0 relative overflow-hidden hover:shadow-[-3px_3px_0px_#FFD214] transition-all duration-300"
               whileHover="hover"
               initial="initial"
             >
@@ -104,7 +115,7 @@ const Hero = () => {
             </motion.button>
 
             <motion.button
-              className="px-3 py-2 text-xl rounded-md"
+              className="px-3 py-2 text-md md:text-lg lg:text-xl rounded-md"
               whileHover={{
                 scale: 1.05,
                 backgroundColor: '#14171c',
@@ -116,21 +127,17 @@ const Hero = () => {
           </div>
         </div>
       </motion.div>
-      <div className="absolute hidden sm:block sm:right-0 -bottom-20 lg:-bottom-36 lg:-right-24">
-        <motion.div
-          className="w-[105%] top-0 left-0 right-0 bottom-0 absolute backdrop-blur-[4px] bg-[length:3px_3px]"
-          style={{
-            mask: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
-            backgroundSize: '4px 4px',
-            backdropFilter: 'blur(3px)',
-            backgroundImage:
-              'radial-gradient(rgba(0, 0, 0, 0) 1px, rgb(15, 17, 21) 1px)',
-          }}
-        ></motion.div>
-        <div className="font-nabla text-[8rem] xl:text-[10rem] italic">
-          gvasilei
-        </div>
-      </div>
+      <motion.div
+        animate={{ y: [0, 20, 0] }}
+        transition={{
+          duration: 2.5,
+          stiffness: 1000,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      >
+        <FaArrowDown size={30} />
+      </motion.div>
     </section>
   )
 }
