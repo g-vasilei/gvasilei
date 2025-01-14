@@ -19,24 +19,12 @@ const Hero = () => {
   // Initial animation
   useEffect(() => {
     const entryAnimation = async () => {
-      // Animate `.grid-items` opacity from 0 to 1
-      await animate(
-        '.grid-items',
-        {
-          opacity: [0, 1],
-        },
-        {
-          ease: 'easeIn',
-          duration: 0.2,
-        }
-      )
-
       // Animate `.fade-in` opacity and y-axis from initial values to target values
-      animate(
+      await animate(
         '.fade-in',
         {
           opacity: [0, 1],
-          y: [40, 0],
+          y: [30, 0],
         },
         {
           ease: 'easeIn',
@@ -54,13 +42,13 @@ const Hero = () => {
       className="flex flex-col gap-16 md:gap-24 items-center justify-center min-h-[30rem] 2xl:p-0 relative max-w-full"
     >
       <GridItems rows={rows} cols={cols} className="grid-items" />
-      <motion.div
+      <div
         style={{
           backgroundImage,
         }}
         className="w-full absolute bottom-0 h-[20rem] flex flex-col gap-3 items-center justify-center overflow-visible -z-[1]"
       />
-      <motion.div className="flex items-center gap-6 md:gap-10 lg:gap-14 flex-wrap">
+      <div className="flex items-center gap-6 md:gap-10 lg:gap-14 flex-wrap">
         <div className="font-nabla text-[6rem] md:text-[8rem] lg:text-[10rem] fade-in">
           GV
         </div>
@@ -85,7 +73,7 @@ const Hero = () => {
             </motion.button>
           </div>
         </div>
-      </motion.div>
+      </div>
       <motion.div
         animate={{ y: [0, 20, 0] }}
         transition={{
