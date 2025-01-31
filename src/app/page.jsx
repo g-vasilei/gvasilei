@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Hero from './components/Hero'
+import Hero from './components/hero/Hero'
 import Experience from './components/Experience'
 import Portfolio from './components/portfolio/Portfolio'
 
