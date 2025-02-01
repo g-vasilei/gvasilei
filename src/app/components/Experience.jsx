@@ -116,20 +116,33 @@ const Experience = () => {
                 />
               ))}
             </motion.ul>
-          </AnimatePresence>
-          <AnimatePresence>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="border border-border bg-card rounded-md w-full max-w-full md:min-h-[435px] relative overflow-hidden h-3/5 md:h-3/4 lg:h-[37.5rem]"
+              className="border border-border bg-card rounded-md w-full max-w-full md:min-h-[435px] relative overflow-hidden h-3/5 md:h-3/4 lg:h-[28rem] lg:flex lg:items-center"
             >
-              <div className="text-base leading-5 lg:text-lg lg:leading-6 p-5">
+              <motion.div
+                key={activeIndex} // Ensure the description re-renders when activeIndex changes
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="text-base leading-7 lg:text-lg lg:leading-8 p-5 lg:max-w-[85%] lg:mx-auto"
+              >
                 {experience[activeIndex].description}
-              </div>
-              <div className="absolute block sm:right-0 -bottom-4 -right-1 lg:-bottom-20 lg:-right-24">
-                <motion.div
+              </motion.div>
+
+              <motion.div
+                className="absolute block sm:right-0 -bottom-4 -right-1 lg:-bottom-20 lg:-right-24 z-[10]"
+                key={`title-${activeIndex}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div
                   className="w-[105%] top-0 left-0 right-0 bottom-0 absolute backdrop-blur-[4px] bg-[length:3px_3px]"
                   style={{
                     mask: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
@@ -138,11 +151,11 @@ const Experience = () => {
                     backgroundImage:
                       'radial-gradient(rgba(0, 0, 0, 0) 1px, rgb(20, 23, 28) 1px)',
                   }}
-                ></motion.div>
-                <div className="font-nabla text-[4rem] lg:text-[8rem] xl:text-[10rem] italic">
+                ></div>
+                <div className="font-nabla text-[4rem] lg:text-[8rem] xl:text-[10rem] italic -z-10">
                   {experience[activeIndex].title}
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </AnimatePresence>
         </div>
