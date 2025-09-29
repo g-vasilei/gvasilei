@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { motion, useMotionTemplate, useAnimate } from 'motion/react'
 import { FaArrowDown } from 'react-icons/fa6'
 import GridItems from './GridItems'
-import useWindowWidth from '@/app/hooks/useWindowWidth'
 import MainButton from '../MainButton'
+import useWindowWidth from '../../hooks/useWindowWidth'
 
 const Hero = () => {
   const width = useWindowWidth()
