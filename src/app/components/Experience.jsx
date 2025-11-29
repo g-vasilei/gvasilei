@@ -3,8 +3,6 @@
 import React, { useRef, useState } from 'react'
 import { motion, useScroll, AnimatePresence } from 'motion/react'
 import { experience } from '../data/data'
-import { renderToString } from 'react-dom/server'
-import { CopyBlock, dracula } from 'react-code-blocks'
 
 function Item({ work, progress, isActive }) {
   return (
@@ -17,7 +15,7 @@ function Item({ work, progress, isActive }) {
         margin: isActive ? '16px 0' : '0',
       }}
       exit={{ height: 'min-content', opacity: 0 }}
-      transition={{ duration: 0.4, ease: 'easeInOut' }} // Smooth animation
+      transition={{ duration: 0.4, ease: 'easeInOut' }}
       layout
     >
       {/* Vertical Progress Line */}
@@ -153,7 +151,7 @@ const Experience = () => {
                   }}
                 ></div>
                 <div className="font-nabla text-[4rem] lg:text-[8rem] xl:text-[10rem] italic -z-10">
-                  {experience[activeIndex].title}
+                  {experience[activeIndex].displayedTitle}
                 </div>
               </motion.div>
             </motion.div>

@@ -5,6 +5,7 @@ export const experience = [
   {
     id: 1,
     title: 'Freelancer',
+    displayedTitle: 'Freelance',
     subTitle: 'Full Stack',
     date: 'Jan 2020 - Now',
     description:
@@ -13,10 +14,20 @@ export const experience = [
   {
     id: 2,
     title: 'Deloitte',
+    displayedTitle: 'Deloitte',
     subTitle: 'Full Stack',
-    date: 'Jan 2024 - Now',
+    date: 'Jan 2024 - Sep 2025',
     description:
       'Contributing to major projects while adhering to professional standards such as Agile methodology, ensuring high-quality development and efficient team collaboration.',
+  },
+  {
+    id: 3,
+    title: 'Bratnet Software Solution',
+    displayedTitle: 'Bratnet',
+    subTitle: 'Full Stack',
+    date: 'Oct 2025 - Now',
+    description:
+      'Developing backend services for an invoicing platform and various internal projects using Node.js, Express, and TypeScript, along with building responsive and maintainable front-end interfaces using React.',
   },
 ]
 
