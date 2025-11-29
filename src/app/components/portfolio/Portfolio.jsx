@@ -15,7 +15,7 @@ const Portfolio = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8">
         {portfolio?.map((project) => (
-          <Link key={project.id} href={project.url}>
+          <Link key={project.id} href={project.url} target="_blank">
             <Card
               title={project.title}
               img={project.img}
