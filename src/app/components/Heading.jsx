@@ -11,6 +11,7 @@ const Heading = ({ children }) => {
       initial="initial"
       whileHover="hovered"
       whileInView="hovered"
+      aria-label={children}
       className="relative block overflow-hidden whitespace-nowrap text-center text-3xl lg:text-5xl font-black uppercase sm:text-7xl"
       style={{
         lineHeight: 0.75,

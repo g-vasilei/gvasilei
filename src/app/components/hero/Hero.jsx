@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion, useMotionTemplate, useAnimate } from 'motion/react'
 import { FaArrowDown } from 'react-icons/fa6'
+import Link from 'next/link'
 import GridItems from './GridItems'
 import MainButton from '../MainButton'
 import useWindowWidth from '../../hooks/useWindowWidth'
@@ -61,16 +62,18 @@ const Hero = () => {
           </p>
           <div className="flex gap-5 fade-in">
             <MainButton text={'Get in touch'} />
-            <motion.button
-              className="px-3 py-2 text-md md:text-lg lg:text-xl rounded-md"
-              whileHover={{
-                scale: 1.05,
-                backgroundColor: '#14171c',
-                transition: { duration: 0.25 },
-              }}
-            >
-              Download CV
-            </motion.button>
+            <Link href="/thesis">
+              <motion.button
+                className="px-3 py-2 text-md md:text-lg lg:text-xl rounded-md"
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: '#14171c',
+                  transition: { duration: 0.25 },
+                }}
+              >
+                Download CV
+              </motion.button>
+            </Link>
           </div>
         </div>
       </div>
