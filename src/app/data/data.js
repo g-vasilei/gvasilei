@@ -64,4 +64,11 @@ export const portfolio = [
     url: 'https://dynamo.gr',
     color: '#ff2323',
   },
+  // {
+  //   id: 2,
+  //   title: 'e-geokipos.gr',
+  //   img: dynamo,
+  //   url: 'https://e-geokipos.gr',
+  //   color: '#55775E',
+  // },
 ]

@@ -104,7 +104,10 @@ const Experience = () => {
       <div className="h-[100vh] flex flex-col items-center justify-around sticky top-0 w-full">
         <div className="flex flex-col items-start justify-center w-full gap-6 lg:grid lg:grid-cols-[300px,1fr] lg:items-center lg:gap-10 h-full lg:max-h-min">
           <AnimatePresence>
-            <motion.ul className="w-full max-w-screen-2xl flex flex-col gap-3 h-32 lg:justify-start lg:self-start">
+            <motion.ul
+              key="experience-list"
+              className="w-full max-w-screen-2xl flex flex-col gap-3 h-32 lg:justify-start lg:self-start"
+            >
               {experience.map((work, index) => (
                 <Item
                   key={work.id}
@@ -115,6 +118,7 @@ const Experience = () => {
               ))}
             </motion.ul>
             <motion.div
+              key="experience-card"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -192,7 +196,7 @@ function ScrollTracker({ index, onProgress }) {
 
   // Update the progress and index
   React.useEffect(() => {
-    const unsubscribe = scrollYProgress.onChange((progress) => {
+    const unsubscribe = scrollYProgress.on('change', (progress) => {
       onProgress(index, progress) // Pass both index and progress
     })
     return () => unsubscribe()
