@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  animate,
-} from 'motion/react'
+import { motion } from 'motion/react'
 
 interface MainButtonProps {
   text: string

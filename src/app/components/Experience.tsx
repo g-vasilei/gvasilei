@@ -80,12 +80,8 @@ function Item({ work, progress, isActive }: ItemProps) {
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             className="top-full flex flex-col items-start gap-3 origin-top-left"
           >
-            <div className="text-md font-semibold text-gray-200">
-              {work.subTitle}
-            </div>
-            <div className="text-sm font-semibold text-gray-400">
-              Since: {work.date}
-            </div>
+            <div className="text-md font-semibold text-gray-200">{work.subTitle}</div>
+            <div className="text-sm font-semibold text-gray-400">Since: {work.date}</div>
           </motion.div>
         </AnimatePresence>
       </motion.div>
@@ -159,8 +155,7 @@ const Experience = () => {
                     mask: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
                     backgroundSize: '4px 4px',
                     backdropFilter: 'blur(3px)',
-                    backgroundImage:
-                      'radial-gradient(rgba(0, 0, 0, 0) 1px, rgb(20, 23, 28) 1px)',
+                    backgroundImage: 'radial-gradient(rgba(0, 0, 0, 0) 1px, rgb(20, 23, 28) 1px)',
                   }}
                 ></div>
                 <div className="font-nabla text-[4rem] lg:text-[8rem] xl:text-[10rem] italic -z-10">

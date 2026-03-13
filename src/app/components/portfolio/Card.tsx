@@ -1,12 +1,7 @@
 'use client'
 
 import React, { useRef } from 'react'
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useSpring,
-} from 'motion/react'
+import { motion, useMotionTemplate, useMotionValue, useSpring } from 'motion/react'
 import Image, { StaticImageData } from 'next/image'
 
 const ROTATION_RANGE = 32.5

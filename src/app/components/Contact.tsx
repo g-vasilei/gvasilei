@@ -109,8 +109,8 @@ const Contact = () => {
             <div className="font-nabla text-[3rem] text-white/40 italic">TOGETHER</div>
           </div>
           <p className="text-gray-400 text-md leading-7">
-            Have a project in mind, a question, or just want to say hi? Fill in the form and
-            I'll get back to you as soon as possible.
+            Have a project in mind, a question, or just want to say hi? Fill in the form and I'll
+            get back to you as soon as possible.
           </p>
           <div className="flex flex-col gap-3 mt-1">
             <div className="flex items-center gap-3 text-sm text-gray-500">

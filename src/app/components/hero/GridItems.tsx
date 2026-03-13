@@ -29,9 +29,7 @@ const GridItems = ({ rows, cols, className }: GridItemsProps) => {
 
   return (
     <div
-      className={`${
-        className || ''
-      } grid w-full absolute top-0 left-0 right-0 bottom-0 -z-[2]`}
+      className={`${className || ''} grid w-full absolute top-0 left-0 right-0 bottom-0 -z-[2]`}
       style={{
         gridTemplateColumns: `repeat(${cols}, 1fr)`,
         gridTemplateRows: `repeat(${rows}, 1fr)`,
