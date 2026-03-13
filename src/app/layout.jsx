@@ -56,6 +56,24 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Nabla&display=swap"
           rel="stylesheet"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Georgios Vasileiou',
+              url: 'https://gvasilei.com',
+              jobTitle: 'Full Stack Developer',
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Thessaloniki',
+                addressCountry: 'GR',
+              },
+              sameAs: ['https://github.com/g-vasilei'],
+            }),
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen font-gabarito bg-body overflow-x-hidden`}

@@ -31,7 +31,6 @@ const MainButton = ({ text }) => {
       </motion.span>
 
       <motion.span
-        before="Get in touch"
         className="before:content-['Get_in_touch'] absolute flex justify-center"
         variants={buttonBottomText}
         transition={{ duration: 0.25 }}

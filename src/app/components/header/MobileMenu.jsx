@@ -29,7 +29,7 @@ const MobileMenu = () => {
                 </li>
               ))}
               <li className="text-2xl font-semibold mt-4">
-                <Link href="https://github.com/g-vasilei" target="__blank">
+                <Link href="https://github.com/g-vasilei" target="_blank" rel="noopener noreferrer">
                   <VscGithubInverted />
                 </Link>
               </li>
