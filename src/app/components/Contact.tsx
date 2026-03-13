@@ -4,7 +4,22 @@ import React, { useState, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'motion/react'
 import Heading from './Heading'
 
-const COUNTRY_CODES = [
+interface CountryCode {
+  code: string
+  flag: string
+  name: string
+}
+
+interface ContactForm {
+  name: string
+  email: string
+  phone: string
+  message: string
+}
+
+type FormStatus = 'idle' | 'loading' | 'success' | 'error'
+
+const COUNTRY_CODES: CountryCode[] = [
   { code: '+30', flag: '🇬🇷', name: 'Greece' },
   { code: '+1', flag: '🇺🇸', name: 'USA / Canada' },
   { code: '+44', flag: '🇬🇧', name: 'UK' },
@@ -32,7 +47,7 @@ const inputClass =
 
 const fieldVariants = {
   hidden: { opacity: 0, y: 24 },
-  visible: (i) => ({
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: { duration: 0.4, ease: 'easeOut', delay: i * 0.09 },
@@ -40,18 +55,18 @@ const fieldVariants = {
 }
 
 const Contact = () => {
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
-  const [countryCode, setCountryCode] = useState(COUNTRY_CODES[0])
+  const [form, setForm] = useState<ContactForm>({ name: '', email: '', phone: '', message: '' })
+  const [countryCode, setCountryCode] = useState<CountryCode>(COUNTRY_CODES[0])
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [status, setStatus] = useState('idle') // idle | loading | success | error
+  const [status, setStatus] = useState<FormStatus>('idle')
 
-  const handleChange = (e) =>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus('loading')
     try {

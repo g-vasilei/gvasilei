@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { motion, useMotionTemplate, useAnimate } from 'motion/react'
 import { FaArrowDown } from 'react-icons/fa6'
 import Link from 'next/link'
@@ -17,10 +17,8 @@ const Hero = () => {
 
   const backgroundImage = useMotionTemplate`radial-gradient(ellipse 120% 110% at 50% 120%, #0f1115 25%, transparent 76%)`
 
-  // Initial animation
   useEffect(() => {
     const entryAnimation = async () => {
-      // Animate `.fade-in` opacity and y-axis from initial values to target values
       await animate(
         '.fade-in',
         {
@@ -34,7 +32,7 @@ const Hero = () => {
       )
     }
 
-    entryAnimation() // Trigger the animation
+    entryAnimation()
   }, [])
 
   return (
@@ -45,7 +43,7 @@ const Hero = () => {
       <GridItems rows={rows} cols={cols} className="grid-items" />
       <div
         style={{
-          backgroundImage,
+          backgroundImage: backgroundImage as unknown as string,
         }}
         className="w-full absolute bottom-0 h-[20rem] flex flex-col gap-3 items-center justify-center overflow-visible -z-[1]"
       />

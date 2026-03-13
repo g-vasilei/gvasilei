@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from 'next/font/google'
+import { Metadata } from 'next'
 import './globals.css'
 import { Header } from './components/header/Header'
 import { Footer } from './components/Footer'
@@ -13,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'gvasilei',
   description: 'gvasilei | full stack developer',
   keywords: [
@@ -46,12 +47,16 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Nabla&display=swap"
           rel="stylesheet"

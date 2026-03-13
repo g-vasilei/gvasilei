@@ -7,13 +7,19 @@ import {
   useMotionValue,
   useSpring,
 } from 'motion/react'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 
 const ROTATION_RANGE = 32.5
 const HALF_ROTATION_RANGE = 32.5 / 2
 
-const Card = ({ title, img, color }) => {
-  const ref = useRef(null)
+interface CardProps {
+  title: string
+  img: StaticImageData
+  color: string
+}
+
+const Card = ({ title, img, color }: CardProps) => {
+  const ref = useRef<HTMLDivElement>(null)
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -23,8 +29,8 @@ const Card = ({ title, img, color }) => {
 
   const transform = useMotionTemplate`rotateX(${xSpring}deg) rotateY(${ySpring}deg)`
 
-  const handleMouseMove = (e) => {
-    if (!ref.current) return [0, 0]
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return
 
     const rect = ref.current.getBoundingClientRect()
 
@@ -78,7 +84,6 @@ const Card = ({ title, img, color }) => {
         >
           {title}
         </p>
-        {/* <div className="bg-[rgba(56,55,55,0.3)] w-full h-full absolute bottom-0 left-0"></div> */}
       </div>
     </motion.div>
   )

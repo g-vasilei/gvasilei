@@ -1,6 +1,12 @@
 import React from 'react'
 
-const GridItems = ({ rows, cols, className }) => {
+interface GridItemsProps {
+  rows: number
+  cols: number
+  className?: string
+}
+
+const GridItems = ({ rows, cols, className }: GridItemsProps) => {
   const gridItems = Array.from({ length: rows }, (_, rowIndex) =>
     Array.from({ length: cols }, (_, colIndex) => {
       const isLastRow = rowIndex === rows - 1
@@ -20,11 +26,12 @@ const GridItems = ({ rows, cols, className }) => {
       )
     })
   ).flat()
+
   return (
     <div
       className={`${
         className || ''
-      } grid w-full  absolute top-0 left-0 right-0 bottom-0 -z-[2]`}
+      } grid w-full absolute top-0 left-0 right-0 bottom-0 -z-[2]`}
       style={{
         gridTemplateColumns: `repeat(${cols}, 1fr)`,
         gridTemplateRows: `repeat(${rows}, 1fr)`,

@@ -1,7 +1,9 @@
-export default function sitemap() {
+import { MetadataRoute } from 'next'
+
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://gvasilei.com'
 
-  const pages = [
+  const pages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),

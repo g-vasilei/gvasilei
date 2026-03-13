@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-export async function POST(request) {
+export async function POST(request: Request) {
   const { name, email, phone, message } = await request.json()
 
   if (!name || !email || !message) {
@@ -8,16 +8,11 @@ export async function POST(request) {
   }
 
   try {
-    // Requires: npm install nodemailer
+    // Requires: npm install nodemailer @types/nodemailer
     // Add to .env.local:
     //   EMAIL_USER=you@gmail.com
     //   EMAIL_PASS=xxxx xxxx xxxx xxxx   <- Gmail App Password (not your account password)
     //   EMAIL_TO=you@gmail.com
-    //
-    // To get an App Password:
-    //   1. Enable 2-Step Verification on your Google account
-    //   2. Go to myaccount.google.com > Security > App Passwords
-    //   3. Generate one and paste it as EMAIL_PASS
     const nodemailer = (await import('nodemailer')).default
 
     const transporter = nodemailer.createTransport({
