@@ -2,7 +2,11 @@
 
 import { motion } from 'motion/react'
 
-const Heading = ({ children }) => {
+interface HeadingProps {
+  children: string
+}
+
+const Heading = ({ children }: HeadingProps) => {
   const DURATION = 0.4
   const STAGGER = 0.025
 

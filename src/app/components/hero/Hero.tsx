@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { motion, useMotionTemplate, useAnimate } from 'motion/react'
 import { FaArrowDown } from 'react-icons/fa6'
 import Link from 'next/link'
@@ -17,10 +17,8 @@ const Hero = () => {
 
   const backgroundImage = useMotionTemplate`radial-gradient(ellipse 120% 110% at 50% 120%, #0f1115 25%, transparent 76%)`
 
-  // Initial animation
   useEffect(() => {
     const entryAnimation = async () => {
-      // Animate `.fade-in` opacity and y-axis from initial values to target values
       await animate(
         '.fade-in',
         {
@@ -34,7 +32,7 @@ const Hero = () => {
       )
     }
 
-    entryAnimation() // Trigger the animation
+    entryAnimation()
   }, [])
 
   return (
@@ -45,21 +43,17 @@ const Hero = () => {
       <GridItems rows={rows} cols={cols} className="grid-items" />
       <div
         style={{
-          backgroundImage,
+          backgroundImage: backgroundImage as unknown as string,
         }}
         className="w-full absolute bottom-0 h-[20rem] flex flex-col gap-3 items-center justify-center overflow-visible -z-[1]"
       />
       <div className="flex items-center gap-6 md:gap-10 lg:gap-14 flex-wrap">
-        <div className="font-nabla text-[6rem] md:text-[8rem] lg:text-[10rem] fade-in">
-          GV
-        </div>
+        <div className="font-nabla text-[6rem] md:text-[8rem] lg:text-[10rem] fade-in">GV</div>
         <div className="flex flex-col gap-3">
           <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold text-yellow fade-in">
             GVASILEI
           </h2>
-          <p className="text-md md:text-lg lg:text-xl fade-in">
-            Your full stack developer
-          </p>
+          <p className="text-md md:text-lg lg:text-xl fade-in">Your full stack developer</p>
           <div className="flex gap-5 fade-in">
             <MainButton text={'Get in touch'} />
             <Link href="/thesis">

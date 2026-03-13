@@ -1,7 +1,31 @@
+import { StaticImageData } from 'next/image'
 import grummpy from '../../../public/portfolio/grumpy.png'
 import dynamo from '../../../public/portfolio/dynamo.png'
 
-export const experience = [
+export interface ExperienceItem {
+  id: number
+  title: string
+  displayedTitle: string
+  subTitle: string
+  date: string
+  description: string
+}
+
+export interface NavigationLink {
+  id: number
+  name: string
+  link: string
+}
+
+export interface PortfolioItem {
+  id: number
+  title: string
+  img: StaticImageData
+  url: string
+  color: string
+}
+
+export const experience: ExperienceItem[] = [
   {
     id: 1,
     title: 'Freelancer',
@@ -31,7 +55,7 @@ export const experience = [
   },
 ]
 
-export const navigationLinks = [
+export const navigationLinks: NavigationLink[] = [
   {
     id: 1,
     name: 'Experience',
@@ -49,7 +73,7 @@ export const navigationLinks = [
   },
 ]
 
-export const portfolio = [
+export const portfolio: PortfolioItem[] = [
   {
     id: 1,
     title: 'grumpy.gr',

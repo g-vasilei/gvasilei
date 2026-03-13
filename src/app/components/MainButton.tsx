@@ -1,12 +1,11 @@
 import React from 'react'
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  animate,
-} from 'motion/react'
+import { motion } from 'motion/react'
 
-const MainButton = ({ text }) => {
+interface MainButtonProps {
+  text: string
+}
+
+const MainButton = ({ text }: MainButtonProps) => {
   const buttonTopText = {
     initial: { y: 0 },
     hover: { y: '-150%' },

@@ -20,7 +20,7 @@ const MobileMenu = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             transition={{ duration: 0.5, type: 'spring' }}
-            className="absolute -top-3 -right-3 w-64 min-h-56 rounded-md bg-card  border border-border py-8 px-6 z-10 origin-top-right"
+            className="absolute -top-3 -right-3 w-64 min-h-56 rounded-md bg-card border border-border py-8 px-6 z-10 origin-top-right"
           >
             <ul className="flex flex-col gap-2 flex-1">
               {navigationLinks.map((link) => (

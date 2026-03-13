@@ -2,9 +2,15 @@
 
 import React, { useRef, useState } from 'react'
 import { motion, useScroll, AnimatePresence } from 'motion/react'
-import { experience } from '../data/data'
+import { experience, ExperienceItem } from '../data/data'
 
-function Item({ work, progress, isActive }) {
+interface ItemProps {
+  work: ExperienceItem
+  progress: number
+  isActive: boolean
+}
+
+function Item({ work, progress, isActive }: ItemProps) {
   return (
     <motion.li
       className={`${
@@ -48,7 +54,6 @@ function Item({ work, progress, isActive }) {
           style={{ overflow: 'hidden', display: 'flex' }}
           className="outline-none flex-col justify-start flex-shrink-0 transform-none will-change-transform origin-top"
         >
-          {/* Animate fontSize for h3 only */}
           <motion.h3
             animate={{
               fontSize: isActive ? '2rem' : '1.5rem',
@@ -75,12 +80,8 @@ function Item({ work, progress, isActive }) {
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             className="top-full flex flex-col items-start gap-3 origin-top-left"
           >
-            <div className="text-md font-semibold text-gray-200">
-              {work.subTitle}
-            </div>
-            <div className="text-sm font-semibold text-gray-400">
-              Since: {work.date}
-            </div>
+            <div className="text-md font-semibold text-gray-200">{work.subTitle}</div>
+            <div className="text-sm font-semibold text-gray-400">Since: {work.date}</div>
           </motion.div>
         </AnimatePresence>
       </motion.div>
@@ -88,9 +89,13 @@ function Item({ work, progress, isActive }) {
   )
 }
 
+interface ProgressValues {
+  [key: number]: { index: number; progress: number }
+}
+
 const Experience = () => {
-  const containerRef = useRef(null)
-  const [progressValues, setProgressValues] = useState({})
+  const containerRef = useRef<HTMLElement>(null)
+  const [progressValues, setProgressValues] = useState<ProgressValues>({})
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (
@@ -113,7 +118,7 @@ const Experience = () => {
                   key={work.id}
                   work={work}
                   progress={progressValues[index]?.progress || 0}
-                  isActive={index === activeIndex} // Highlight active item
+                  isActive={index === activeIndex}
                 />
               ))}
             </motion.ul>
@@ -126,7 +131,7 @@ const Experience = () => {
               className="border border-border bg-card rounded-md w-full max-w-full md:min-h-[435px] relative overflow-hidden h-3/5 md:h-3/4 lg:h-[28rem] lg:flex lg:items-center"
             >
               <motion.div
-                key={activeIndex} // Ensure the description re-renders when activeIndex changes
+                key={activeIndex}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -150,8 +155,7 @@ const Experience = () => {
                     mask: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
                     backgroundSize: '4px 4px',
                     backdropFilter: 'blur(3px)',
-                    backgroundImage:
-                      'radial-gradient(rgba(0, 0, 0, 0) 1px, rgb(20, 23, 28) 1px)',
+                    backgroundImage: 'radial-gradient(rgba(0, 0, 0, 0) 1px, rgb(20, 23, 28) 1px)',
                   }}
                 ></div>
                 <div className="font-nabla text-[4rem] lg:text-[8rem] xl:text-[10rem] italic -z-10">
@@ -174,7 +178,7 @@ const Experience = () => {
                 ...prev,
                 [idx]: { index: idx, progress },
               }))
-              if (progress > 0.01) setActiveIndex(idx) // Set active index if progress is > 50%
+              if (progress > 0.01) setActiveIndex(idx)
             }}
           />
         ))}
@@ -185,19 +189,22 @@ const Experience = () => {
   )
 }
 
-function ScrollTracker({ index, onProgress }) {
-  const ref = useRef(null)
+interface ScrollTrackerProps {
+  index: number
+  onProgress: (idx: number, progress: number) => void
+}
 
-  // Track scroll progress for this element
+function ScrollTracker({ index, onProgress }: ScrollTrackerProps) {
+  const ref = useRef<HTMLDivElement>(null)
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start start', 'end start'], // Tracks when the div enters and exits the viewport
+    offset: ['start start', 'end start'],
   })
 
-  // Update the progress and index
   React.useEffect(() => {
     const unsubscribe = scrollYProgress.on('change', (progress) => {
-      onProgress(index, progress) // Pass both index and progress
+      onProgress(index, progress)
     })
     return () => unsubscribe()
   }, [scrollYProgress, onProgress, index])
