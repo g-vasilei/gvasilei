@@ -3,11 +3,21 @@
 import React, { useState } from 'react'
 import BurgerButton from './BurgerButton'
 import Link from 'next/link'
-import { navigationLinks } from '../../data/data'
 import { AnimatePresence, motion } from 'motion/react'
 import { VscGithubInverted } from 'react-icons/vsc'
+import LanguageSwitcher from '../LanguageSwitcher'
 
-const MobileMenu = () => {
+interface NavLink {
+  id: number
+  name: string
+  link: string
+}
+
+interface MobileMenuProps {
+  navLinks: NavLink[]
+}
+
+const MobileMenu = ({ navLinks }: MobileMenuProps) => {
   const [openMenu, setOpenMenu] = useState(false)
 
   return (
@@ -24,9 +34,9 @@ const MobileMenu = () => {
             className="absolute -top-3 -right-3 w-64 min-h-56 rounded-md bg-card border border-border py-8 px-6 z-10 origin-top-right"
           >
             <ul className="flex flex-col gap-2 flex-1">
-              {navigationLinks.map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.id} className="text-2xl font-semibold">
-                  <Link href={link.link}>{link.name}</Link>
+                  <Link href={link.link} onClick={() => setOpenMenu(false)}>{link.name}</Link>
                 </li>
               ))}
               <li className="text-2xl font-semibold mt-4">
@@ -38,6 +48,9 @@ const MobileMenu = () => {
                 >
                   <VscGithubInverted aria-hidden="true" />
                 </Link>
+              </li>
+              <li className="mt-2">
+                <LanguageSwitcher />
               </li>
             </ul>
           </motion.div>

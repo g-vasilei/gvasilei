@@ -4,6 +4,22 @@ import React, { useState, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'motion/react'
 import Heading from './Heading'
 
+interface ContactDict {
+  heading: string
+  lets: string
+  work: string
+  together: string
+  description: string
+  location: string
+  availability: string
+  fields: { name: string; email: string; phone: string; message: string }
+  placeholders: { name: string; email: string; phone: string; message: string }
+  submit: string
+  submitting: string
+  success: { title: string; description: string; again: string }
+  error: string
+}
+
 interface CountryCode {
   code: string
   flag: string
@@ -54,7 +70,7 @@ const fieldVariants = {
   }),
 }
 
-const Contact = () => {
+const Contact = ({ dict }: { dict: ContactDict }) => {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -89,7 +105,7 @@ const Contact = () => {
       id="contact"
     >
       <div>
-        <Heading>Contact</Heading>
+        <Heading>{dict.heading}</Heading>
       </div>
 
       <div
@@ -104,22 +120,21 @@ const Contact = () => {
           className="flex flex-col gap-6"
         >
           <div className="leading-none select-none">
-            <div className="font-nabla text-[4.5rem] text-yellow italic">LET'S</div>
-            <div className="font-nabla text-[4.5rem] text-orange italic">WORK</div>
-            <div className="font-nabla text-[3rem] text-white/40 italic">TOGETHER</div>
+            <div className="font-nabla text-[4.5rem] text-yellow italic">{dict.lets}</div>
+            <div className="font-nabla text-[4.5rem] text-orange italic">{dict.work}</div>
+            <div className="font-nabla text-[3rem] text-white/40 italic">{dict.together}</div>
           </div>
           <p className="text-gray-400 text-md leading-7">
-            Have a project in mind, a question, or just want to say hi? Fill in the form and I'll
-            get back to you as soon as possible.
+            {dict.description}
           </p>
           <div className="flex flex-col gap-3 mt-1">
             <div className="flex items-center gap-3 text-sm text-gray-500">
               <span className="w-1.5 h-1.5 rounded-full bg-orange flex-shrink-0" />
-              Based in Thessaloniki, Greece
+              {dict.location}
             </div>
             <div className="flex items-center gap-3 text-sm text-gray-500">
               <span className="w-1.5 h-1.5 rounded-full bg-yellow flex-shrink-0" />
-              Available for freelance projects
+              {dict.availability}
             </div>
           </div>
         </motion.div>
@@ -160,15 +175,15 @@ const Contact = () => {
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </motion.div>
-                <h3 className="text-xl font-bold text-white font-gabarito">Message sent!</h3>
+                <h3 className="text-xl font-bold text-white font-gabarito">{dict.success.title}</h3>
                 <p className="text-gray-400 max-w-xs">
-                  Thanks for reaching out. I'll get back to you as soon as possible.
+                  {dict.success.description}
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
                   className="mt-1 text-orange text-sm underline underline-offset-4 hover:text-yellow transition-colors duration-200"
                 >
-                  Send another message
+                  {dict.success.again}
                 </button>
               </motion.div>
             ) : (
@@ -188,13 +203,13 @@ const Contact = () => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label htmlFor="contact-name" className="text-sm font-semibold text-gray-400">Full Name</label>
+                  <label htmlFor="contact-name" className="text-sm font-semibold text-gray-400">{dict.fields.name}</label>
                   <input
                     id="contact-name"
                     type="text"
                     name="name"
                     required
-                    placeholder="Georgios Vasileiou"
+                    placeholder={dict.placeholders.name}
                     value={form.name}
                     onChange={handleChange}
                     className={inputClass}
@@ -209,13 +224,13 @@ const Contact = () => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label htmlFor="contact-email" className="text-sm font-semibold text-gray-400">Email</label>
+                  <label htmlFor="contact-email" className="text-sm font-semibold text-gray-400">{dict.fields.email}</label>
                   <input
                     id="contact-email"
                     type="email"
                     name="email"
                     required
-                    placeholder="hello@example.com"
+                    placeholder={dict.placeholders.email}
                     value={form.email}
                     onChange={handleChange}
                     className={inputClass}
@@ -230,7 +245,7 @@ const Contact = () => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label htmlFor="contact-phone" className="text-sm font-semibold text-gray-400">Phone Number</label>
+                  <label htmlFor="contact-phone" className="text-sm font-semibold text-gray-400">{dict.fields.phone}</label>
                   <div className="flex gap-2">
                     {/* Country code dropdown */}
                     <div className="relative flex-shrink-0">
@@ -304,7 +319,7 @@ const Contact = () => {
                       id="contact-phone"
                       type="tel"
                       name="phone"
-                      placeholder="69X XXX XXXX"
+                      placeholder={dict.placeholders.phone}
                       value={form.phone}
                       onChange={handleChange}
                       className={`${inputClass} flex-1`}
@@ -320,13 +335,13 @@ const Contact = () => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label htmlFor="contact-message" className="text-sm font-semibold text-gray-400">Message</label>
+                  <label htmlFor="contact-message" className="text-sm font-semibold text-gray-400">{dict.fields.message}</label>
                   <textarea
                     id="contact-message"
                     name="message"
                     required
                     rows={5}
-                    placeholder="Tell me about your project..."
+                    placeholder={dict.placeholders.message}
                     value={form.message}
                     onChange={handleChange}
                     className={`${inputClass} resize-none`}
@@ -343,7 +358,7 @@ const Contact = () => {
                       exit={{ opacity: 0 }}
                       className="text-red-400 text-sm"
                     >
-                      Something went wrong. Please try again.
+                      {dict.error}
                     </motion.p>
                   )}
                 </AnimatePresence>
@@ -376,7 +391,7 @@ const Contact = () => {
                             transition={{ duration: 0.9, repeat: Infinity, ease: 'linear' }}
                             className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full inline-block"
                           />
-                          Sending...
+                          {dict.submitting}
                         </motion.span>
                       ) : (
                         <motion.span
@@ -386,7 +401,7 @@ const Contact = () => {
                           exit={{ opacity: 0 }}
                           className="flex items-center gap-2.5"
                         >
-                          Send Message
+                          {dict.submit}
                           <svg
                             width="17"
                             height="17"

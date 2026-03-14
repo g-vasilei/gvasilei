@@ -7,7 +7,13 @@ import GridItems from './GridItems'
 import MainButton from '../MainButton'
 import useWindowWidth from '../../hooks/useWindowWidth'
 
-const Hero = () => {
+interface HeroDict {
+  tagline: string
+  cta: string
+  cv: string
+}
+
+const Hero = ({ dict }: { dict: HeroDict }) => {
   const width = useWindowWidth()
   const [scope, animate] = useAnimate()
 
@@ -20,17 +26,10 @@ const Hero = () => {
     const entryAnimation = async () => {
       await animate(
         '.fade-in',
-        {
-          opacity: [0, 1],
-          y: [30, 0],
-        },
-        {
-          ease: 'easeIn',
-          duration: 0.325,
-        }
+        { opacity: [0, 1], y: [30, 0] },
+        { ease: 'easeIn', duration: 0.325 }
       )
     }
-
     entryAnimation()
   }, [])
 
@@ -41,42 +40,40 @@ const Hero = () => {
     >
       <GridItems rows={rows} cols={cols} className="grid-items" />
       <div
-        style={{
-          backgroundImage: backgroundImage as unknown as string,
-        }}
+        style={{ backgroundImage: backgroundImage as unknown as string }}
         className="w-full absolute bottom-0 h-[20rem] flex flex-col gap-3 items-center justify-center overflow-visible -z-[1]"
       />
       <div className="flex items-center gap-6 md:gap-10 lg:gap-14 flex-wrap">
-        <div className="font-nabla text-[6rem] md:text-[8rem] lg:text-[10rem] fade-in" aria-hidden="true">GV</div>
+        <div
+          className="font-nabla text-[6rem] md:text-[8rem] lg:text-[10rem] fade-in"
+          aria-hidden="true"
+        >
+          GV
+        </div>
         <div className="flex flex-col gap-3">
           <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold text-yellow fade-in">
             GVASILEI
           </h2>
-          <p className="text-md md:text-lg lg:text-xl fade-in">Your full stack developer</p>
+          <p className="text-md md:text-lg lg:text-xl fade-in">{dict.tagline}</p>
           <div className="flex gap-5 fade-in">
-            <MainButton text={'Get in touch'} />
+            <MainButton text={dict.cta} />
             <motion.a
               href="/thesis"
-              className="px-3 py-2 text-md md:text-lg lg:text-xl rounded-md"
+              className="px-3 py-2 flex items-center text-md md:text-lg lg:text-xl rounded-md"
               whileHover={{
                 scale: 1.05,
                 backgroundColor: '#14171c',
                 transition: { duration: 0.25 },
               }}
             >
-              Download CV
+              {dict.cv}
             </motion.a>
           </div>
         </div>
       </div>
       <motion.div
         animate={{ y: [0, 20, 0] }}
-        transition={{
-          duration: 2.5,
-          stiffness: 1000,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+        transition={{ duration: 2.5, stiffness: 1000, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden="true"
       >
         <FaArrowDown size={30} />

@@ -1,9 +1,21 @@
 import React from 'react'
-import { navigationLinks } from '../../data/data'
 import Link from 'next/link'
 import MobileMenu from './MobileMenu'
+import LanguageSwitcher from '../LanguageSwitcher'
+import type { Locale } from '../../../i18n/getDictionary'
 
-export const Header = () => {
+interface NavLink {
+  id: number
+  name: string
+  link: string
+}
+
+interface HeaderProps {
+  navLinks: NavLink[]
+  locale: Locale
+}
+
+export const Header = ({ navLinks, locale }: HeaderProps) => {
   return (
     <header className="w-full">
       <nav
@@ -12,13 +24,16 @@ export const Header = () => {
       >
         <h1 className="font-bold text-5xl font-nabla">GV</h1>
         <ul className="hidden sm:flex items-center text-white gap-6">
-          {navigationLinks.map((link) => (
+          {navLinks.map((link) => (
             <li key={link.id} className="text-xl">
               <Link href={link.link}>{link.name}</Link>
             </li>
           ))}
         </ul>
-        <MobileMenu />
+        <div className="hidden sm:flex items-center gap-4">
+          <LanguageSwitcher />
+        </div>
+        <MobileMenu navLinks={navLinks} />
       </nav>
     </header>
   )
