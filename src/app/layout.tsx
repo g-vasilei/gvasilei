@@ -15,35 +15,44 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'gvasilei',
-  description: 'gvasilei | full stack developer',
+  metadataBase: new URL('https://gvasilei.gr'),
+  title: 'Georgios Vasileiou | Full Stack Developer',
+  description:
+    'Full stack developer based in Thessaloniki, Greece. Specialising in React, Next.js, Node.js and modern web technologies. Available for freelance projects.',
   keywords: [
-    'Full stack',
+    'Full stack developer',
     'React',
-    'NextJS',
-    'Scss',
-    'SEO',
-    'Javascript',
-    'Responsive Design',
-    'Wordpress',
-    'Woocommerce',
-    'Eshop',
+    'Next.js',
+    'Node.js',
+    'TypeScript',
+    'JavaScript',
     'MongoDB',
-    'Web developer',
-    'Web',
     'Express',
+    'Responsive Design',
+    'WordPress',
+    'WooCommerce',
+    'Web developer',
     'Thessaloniki',
+    'Greece',
+    'Freelance',
   ],
+  authors: [{ name: 'Georgios Vasileiou', url: 'https://gvasilei.gr' }],
+  alternates: {
+    canonical: 'https://gvasilei.gr',
+  },
   openGraph: {
-    title: 'gvasilei',
-    description: 'gvasilei | full stack developer',
-    type: 'article',
-    url: `https://gvasilei.com/`,
+    title: 'Georgios Vasileiou | Full Stack Developer',
+    description:
+      'Full stack developer based in Thessaloniki, Greece. Specialising in React, Next.js, Node.js and modern web technologies.',
+    type: 'website',
+    url: 'https://gvasilei.gr/',
+    siteName: 'Georgios Vasileiou',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'gvasilei',
-    description: 'gvasilei | full stack developer',
+    title: 'Georgios Vasileiou | Full Stack Developer',
+    description:
+      'Full stack developer based in Thessaloniki, Greece. Specialising in React, Next.js, Node.js and modern web technologies.',
   },
 }
 
@@ -65,13 +74,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Georgios Vasileiou',
-              url: 'https://gvasilei.com',
+              url: 'https://gvasilei.gr',
               jobTitle: 'Full Stack Developer',
               address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'Thessaloniki',
                 addressCountry: 'GR',
               },
+              description:
+                'Full stack developer based in Thessaloniki, Greece, specialising in React, Next.js, Node.js and modern web technologies.',
+              knowsAbout: ['React', 'Next.js', 'Node.js', 'TypeScript', 'MongoDB', 'Express'],
               sameAs: ['https://github.com/g-vasilei'],
             }),
           }}
@@ -80,6 +92,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen font-gabarito bg-body overflow-x-hidden`}
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-orange focus:text-black focus:rounded-md focus:font-semibold"
+        >
+          Skip to main content
+        </a>
         <Header />
         {children}
         <Footer />

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://gvasilei.com'
+  const baseUrl = 'https://gvasilei.gr'
 
   const pages: MetadataRoute.Sitemap = [
     {

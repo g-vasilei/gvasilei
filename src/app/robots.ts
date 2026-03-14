@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://gvasilei.com/sitemap.xml',
+    sitemap: 'https://gvasilei.gr/sitemap.xml',
   }
 }

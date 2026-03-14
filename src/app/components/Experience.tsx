@@ -101,6 +101,7 @@ const Experience = () => {
   return (
     <section
       ref={containerRef}
+      aria-label="Experience"
       className="flex flex-col items-center justify-start w-full relative"
       style={{ height: `${100 * (experience.length + 1)}vh` }}
       id="experience"

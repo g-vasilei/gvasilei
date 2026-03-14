@@ -21,7 +21,7 @@ const Heading = ({ children }: HeadingProps) => {
         lineHeight: 0.75,
       }}
     >
-      <div>
+      <div aria-hidden="true">
         {children.split('').map((l, i) => (
           <motion.span
             variants={{
@@ -44,7 +44,7 @@ const Heading = ({ children }: HeadingProps) => {
           </motion.span>
         ))}
       </div>
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" aria-hidden="true">
         {children.split('').map((l, i) => (
           <motion.span
             variants={{

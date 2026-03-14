@@ -16,6 +16,7 @@ const MobileMenu = () => {
       <AnimatePresence>
         {openMenu && (
           <motion.div
+            id="mobile-menu"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
@@ -29,8 +30,13 @@ const MobileMenu = () => {
                 </li>
               ))}
               <li className="text-2xl font-semibold mt-4">
-                <Link href="https://github.com/g-vasilei" target="_blank" rel="noopener noreferrer">
-                  <VscGithubInverted />
+                <Link
+                  href="https://github.com/g-vasilei"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub profile (opens in new tab)"
+                >
+                  <VscGithubInverted aria-hidden="true" />
                 </Link>
               </li>
             </ul>

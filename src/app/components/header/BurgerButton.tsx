@@ -20,11 +20,15 @@ const BurgerButton = ({ openMenu, setOpenMenu }: BurgerButtonProps) => {
   }
 
   return (
-    <div
+    <button
+      type="button"
       onClick={() => setOpenMenu(!openMenu)}
+      aria-label={openMenu ? 'Close menu' : 'Open menu'}
+      aria-expanded={openMenu}
+      aria-controls="mobile-menu"
       className="relative justify-self-center flex flex-col gap-2 cursor-pointer stroke-white stroke-2 z-50"
     >
-      <svg width="24" height="24" viewBox="0 0 24 24">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <motion.path
           initial={path1Variants.closed}
           animate={openMenu ? path1Variants.open : path1Variants.closed}
@@ -36,7 +40,7 @@ const BurgerButton = ({ openMenu, setOpenMenu }: BurgerButtonProps) => {
           transition={{ duration: 0.25 }}
         />
       </svg>
-    </div>
+    </button>
   )
 }
 

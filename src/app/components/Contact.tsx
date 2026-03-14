@@ -188,8 +188,9 @@ const Contact = () => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label className="text-sm font-semibold text-gray-400">Full Name</label>
+                  <label htmlFor="contact-name" className="text-sm font-semibold text-gray-400">Full Name</label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
                     required
@@ -208,8 +209,9 @@ const Contact = () => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label className="text-sm font-semibold text-gray-400">Email</label>
+                  <label htmlFor="contact-email" className="text-sm font-semibold text-gray-400">Email</label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
                     required
@@ -228,13 +230,16 @@ const Contact = () => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label className="text-sm font-semibold text-gray-400">Phone Number</label>
+                  <label htmlFor="contact-phone" className="text-sm font-semibold text-gray-400">Phone Number</label>
                   <div className="flex gap-2">
                     {/* Country code dropdown */}
                     <div className="relative flex-shrink-0">
                       <button
                         type="button"
                         onClick={() => setDropdownOpen((v) => !v)}
+                        aria-haspopup="listbox"
+                        aria-expanded={dropdownOpen}
+                        aria-label={`Country code: ${countryCode.name} ${countryCode.code}`}
                         className="h-full bg-body border border-border rounded-md px-3 flex items-center gap-2 text-white hover:border-orange focus:outline-none focus:border-orange transition-colors duration-200 min-w-[96px]"
                       >
                         <span className="text-base">{countryCode.flag}</span>
@@ -266,6 +271,8 @@ const Contact = () => {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: -6, scale: 0.97 }}
                             transition={{ duration: 0.16, ease: 'easeOut' }}
+                            role="listbox"
+                            aria-label="Select country code"
                             className="absolute left-0 top-full mt-1 z-50 bg-card border border-border rounded-md overflow-y-auto max-h-52 min-w-[190px] shadow-xl shadow-black/50"
                           >
                             {COUNTRY_CODES.map((c) => (
@@ -294,6 +301,7 @@ const Contact = () => {
                     </div>
 
                     <input
+                      id="contact-phone"
                       type="tel"
                       name="phone"
                       placeholder="69X XXX XXXX"
@@ -312,8 +320,9 @@ const Contact = () => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label className="text-sm font-semibold text-gray-400">Message</label>
+                  <label htmlFor="contact-message" className="text-sm font-semibold text-gray-400">Message</label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     required
                     rows={5}
@@ -328,6 +337,7 @@ const Contact = () => {
                 <AnimatePresence>
                   {status === 'error' && (
                     <motion.p
+                      role="alert"
                       initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}

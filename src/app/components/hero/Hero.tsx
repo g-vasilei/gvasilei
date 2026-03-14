@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react'
 import { motion, useMotionTemplate, useAnimate } from 'motion/react'
 import { FaArrowDown } from 'react-icons/fa6'
-import Link from 'next/link'
 import GridItems from './GridItems'
 import MainButton from '../MainButton'
 import useWindowWidth from '../../hooks/useWindowWidth'
@@ -48,7 +47,7 @@ const Hero = () => {
         className="w-full absolute bottom-0 h-[20rem] flex flex-col gap-3 items-center justify-center overflow-visible -z-[1]"
       />
       <div className="flex items-center gap-6 md:gap-10 lg:gap-14 flex-wrap">
-        <div className="font-nabla text-[6rem] md:text-[8rem] lg:text-[10rem] fade-in">GV</div>
+        <div className="font-nabla text-[6rem] md:text-[8rem] lg:text-[10rem] fade-in" aria-hidden="true">GV</div>
         <div className="flex flex-col gap-3">
           <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold text-yellow fade-in">
             GVASILEI
@@ -56,18 +55,17 @@ const Hero = () => {
           <p className="text-md md:text-lg lg:text-xl fade-in">Your full stack developer</p>
           <div className="flex gap-5 fade-in">
             <MainButton text={'Get in touch'} />
-            <Link href="/thesis">
-              <motion.button
-                className="px-3 py-2 text-md md:text-lg lg:text-xl rounded-md"
-                whileHover={{
-                  scale: 1.05,
-                  backgroundColor: '#14171c',
-                  transition: { duration: 0.25 },
-                }}
-              >
-                Download CV
-              </motion.button>
-            </Link>
+            <motion.a
+              href="/thesis"
+              className="px-3 py-2 text-md md:text-lg lg:text-xl rounded-md"
+              whileHover={{
+                scale: 1.05,
+                backgroundColor: '#14171c',
+                transition: { duration: 0.25 },
+              }}
+            >
+              Download CV
+            </motion.a>
           </div>
         </div>
       </div>
@@ -79,6 +77,7 @@ const Hero = () => {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
+        aria-hidden="true"
       >
         <FaArrowDown size={30} />
       </motion.div>
