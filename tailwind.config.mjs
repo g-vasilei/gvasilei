@@ -17,7 +17,7 @@ export default {
         orange: '#FF7727',
       },
       fontFamily: {
-        gabarito: ['Gabarito', 'serif'],
+        gabarito: ['TikTok Sans', 'sans-serif'],
         nabla: ['Nabla', 'serif'],
       },
     },
