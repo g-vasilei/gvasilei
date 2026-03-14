@@ -113,7 +113,7 @@ export default async function LocaleLayout({
         >
           Skip to main content
         </a>
-        <Header navLinks={dict.nav} locale={locale} />
+        <Header navLinks={dict.nav} />
         {children}
         <Footer />
       </body>

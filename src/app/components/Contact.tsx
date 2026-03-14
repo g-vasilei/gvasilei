@@ -124,9 +124,7 @@ const Contact = ({ dict }: { dict: ContactDict }) => {
             <div className="font-nabla text-[4.5rem] text-orange italic">{dict.work}</div>
             <div className="font-nabla text-[3rem] text-white/40 italic">{dict.together}</div>
           </div>
-          <p className="text-gray-400 text-md leading-7">
-            {dict.description}
-          </p>
+          <p className="text-gray-400 text-md leading-7">{dict.description}</p>
           <div className="flex flex-col gap-3 mt-1">
             <div className="flex items-center gap-3 text-sm text-gray-500">
               <span className="w-1.5 h-1.5 rounded-full bg-orange flex-shrink-0" />
@@ -176,9 +174,7 @@ const Contact = ({ dict }: { dict: ContactDict }) => {
                   </svg>
                 </motion.div>
                 <h3 className="text-xl font-bold text-white font-gabarito">{dict.success.title}</h3>
-                <p className="text-gray-400 max-w-xs">
-                  {dict.success.description}
-                </p>
+                <p className="text-gray-400 max-w-xs">{dict.success.description}</p>
                 <button
                   onClick={() => setStatus('idle')}
                   className="mt-1 text-orange text-sm underline underline-offset-4 hover:text-yellow transition-colors duration-200"
@@ -203,7 +199,9 @@ const Contact = ({ dict }: { dict: ContactDict }) => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label htmlFor="contact-name" className="text-sm font-semibold text-gray-400">{dict.fields.name}</label>
+                  <label htmlFor="contact-name" className="text-sm font-semibold text-gray-400">
+                    {dict.fields.name}
+                  </label>
                   <input
                     id="contact-name"
                     type="text"
@@ -224,7 +222,9 @@ const Contact = ({ dict }: { dict: ContactDict }) => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label htmlFor="contact-email" className="text-sm font-semibold text-gray-400">{dict.fields.email}</label>
+                  <label htmlFor="contact-email" className="text-sm font-semibold text-gray-400">
+                    {dict.fields.email}
+                  </label>
                   <input
                     id="contact-email"
                     type="email"
@@ -245,7 +245,9 @@ const Contact = ({ dict }: { dict: ContactDict }) => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label htmlFor="contact-phone" className="text-sm font-semibold text-gray-400">{dict.fields.phone}</label>
+                  <label htmlFor="contact-phone" className="text-sm font-semibold text-gray-400">
+                    {dict.fields.phone}
+                  </label>
                   <div className="flex gap-2">
                     {/* Country code dropdown */}
                     <div className="relative flex-shrink-0">
@@ -335,7 +337,9 @@ const Contact = ({ dict }: { dict: ContactDict }) => {
                   animate={isInView ? 'visible' : 'hidden'}
                   className="flex flex-col gap-2"
                 >
-                  <label htmlFor="contact-message" className="text-sm font-semibold text-gray-400">{dict.fields.message}</label>
+                  <label htmlFor="contact-message" className="text-sm font-semibold text-gray-400">
+                    {dict.fields.message}
+                  </label>
                   <textarea
                     id="contact-message"
                     name="message"

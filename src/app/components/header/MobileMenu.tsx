@@ -36,7 +36,9 @@ const MobileMenu = ({ navLinks }: MobileMenuProps) => {
             <ul className="flex flex-col gap-2 flex-1">
               {navLinks.map((link) => (
                 <li key={link.id} className="text-2xl font-semibold">
-                  <Link href={link.link} onClick={() => setOpenMenu(false)}>{link.name}</Link>
+                  <Link href={link.link} onClick={() => setOpenMenu(false)}>
+                    {link.name}
+                  </Link>
                 </li>
               ))}
               <li className="text-2xl font-semibold mt-4">

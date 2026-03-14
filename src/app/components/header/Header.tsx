@@ -2,8 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import MobileMenu from './MobileMenu'
 import LanguageSwitcher from '../LanguageSwitcher'
-import type { Locale } from '../../../i18n/getDictionary'
-
 interface NavLink {
   id: number
   name: string
@@ -12,10 +10,9 @@ interface NavLink {
 
 interface HeaderProps {
   navLinks: NavLink[]
-  locale: Locale
 }
 
-export const Header = ({ navLinks, locale }: HeaderProps) => {
+export const Header = ({ navLinks }: HeaderProps) => {
   return (
     <header className="w-full">
       <nav
