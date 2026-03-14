@@ -1,16 +1,20 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://gvasilei.com'
+  const baseUrl = 'https://gvasilei.gr'
 
-  const pages: MetadataRoute.Sitemap = [
+  return [
     {
-      url: baseUrl,
+      url: `${baseUrl}/en`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 1,
+    },
+    {
+      url: `${baseUrl}/el`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
   ]
-
-  return [...pages]
 }

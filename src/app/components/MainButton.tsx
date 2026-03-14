@@ -15,6 +15,7 @@ const MainButton = ({ text }: MainButtonProps) => {
     initial: { y: '150%' },
     hover: { y: 0 },
   }
+
   return (
     <motion.button
       className="px-4 py-3 rounded-md border border-border bg-orange text-md md:text-lg lg:text-xl flex flex-col items-center justify-center gap-0 relative overflow-hidden hover:shadow-[-3px_3px_0px_#FFD214] transition-all duration-300"
@@ -28,12 +29,13 @@ const MainButton = ({ text }: MainButtonProps) => {
       >
         {text}
       </motion.span>
-
       <motion.span
-        className="before:content-['Get_in_touch'] absolute flex justify-center"
+        className="absolute flex justify-center"
         variants={buttonBottomText}
         transition={{ duration: 0.25 }}
-      ></motion.span>
+      >
+        {text}
+      </motion.span>
     </motion.button>
   )
 }

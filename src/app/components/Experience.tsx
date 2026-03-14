@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react'
 import { motion, useScroll, AnimatePresence } from 'motion/react'
-import { experience, ExperienceItem } from '../data/data'
+import { ExperienceItem } from '../data/data'
 
 interface ItemProps {
   work: ExperienceItem
@@ -93,7 +93,7 @@ interface ProgressValues {
   [key: number]: { index: number; progress: number }
 }
 
-const Experience = () => {
+const Experience = ({ items }: { items: ExperienceItem[] }) => {
   const containerRef = useRef<HTMLElement>(null)
   const [progressValues, setProgressValues] = useState<ProgressValues>({})
   const [activeIndex, setActiveIndex] = useState(0)
@@ -101,8 +101,9 @@ const Experience = () => {
   return (
     <section
       ref={containerRef}
+      aria-label="Experience"
       className="flex flex-col items-center justify-start w-full relative"
-      style={{ height: `${100 * (experience.length + 1)}vh` }}
+      style={{ height: `${100 * (items.length + 1)}vh` }}
       id="experience"
     >
       {/* Sticky container */}
@@ -110,10 +111,10 @@ const Experience = () => {
         <div className="flex flex-col items-start justify-center w-full gap-6 lg:grid lg:grid-cols-[300px,1fr] lg:items-center lg:gap-10 h-full lg:max-h-min">
           <AnimatePresence>
             <motion.ul
-              key="experience-list"
+              key="items-list"
               className="w-full max-w-screen-2xl flex flex-col gap-3 h-32 lg:justify-start lg:self-start"
             >
-              {experience.map((work, index) => (
+              {items.map((work, index) => (
                 <Item
                   key={work.id}
                   work={work}
@@ -123,7 +124,7 @@ const Experience = () => {
               ))}
             </motion.ul>
             <motion.div
-              key="experience-card"
+              key="items-card"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -138,7 +139,7 @@ const Experience = () => {
                 transition={{ duration: 0.3 }}
                 className="text-base leading-7 lg:text-lg lg:leading-8 p-5 lg:max-w-[85%] lg:mx-auto"
               >
-                {experience[activeIndex].description}
+                {items[activeIndex].description}
               </motion.div>
 
               <motion.div
@@ -159,7 +160,7 @@ const Experience = () => {
                   }}
                 ></div>
                 <div className="font-nabla text-[4rem] lg:text-[8rem] xl:text-[10rem] italic -z-10">
-                  {experience[activeIndex].displayedTitle}
+                  {items[activeIndex].displayedTitle}
                 </div>
               </motion.div>
             </motion.div>
@@ -169,7 +170,7 @@ const Experience = () => {
 
       {/* Divs to Track */}
       <div className="absolute top-0 w-full z-[-1]">
-        {experience.map((work, index) => (
+        {items.map((work, index) => (
           <ScrollTracker
             key={work.id}
             index={index}
